@@ -1,21 +1,21 @@
 (function() {
-    // Function to find and click the link with href containing 'Proceed'
+    // Function to find and click the link with text content 'Proceed'
     function clickProceedLink() {
         // Get all links on the page
-        const links = document.querySelectorAll("a[href*='Proceed']");
+        const links = document.querySelectorAll("a");
         let found = false;
 
-        // Iterate over the links to find the ones with the required href
+        // Iterate over the links to find the ones with the required text
         links.forEach(link => {
-            if (link.getAttribute('href').includes('Proceed')) {
+            if (link.textContent.trim().toLowerCase() === 'proceed') {
                 link.click();
-                console.log("Link with href 'Proceed' clicked successfully.");
+                console.log("Link with text 'Proceed' clicked successfully.");
                 found = true;
             }
         });
 
         if (!found) {
-            console.log("Link with href 'Proceed' not found.");
+            console.log("Link with text 'Proceed' not found.");
         }
     }
 
