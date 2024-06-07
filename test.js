@@ -1,45 +1,27 @@
 (function() {
-    // Function to find and click the link with text content 'Proceed'
-    function clickProceedLink() {
-        // Get all links on the page
-        const links = document.querySelectorAll("a");
-        let found = false;
+    // Function to continuously check for the link and click it
+    function continuouslyCheckForLink() {
+        while (true) {
+            // Find all <a> elements
+            const links = document.querySelectorAll('a');
 
-        // Iterate over the links to find the ones with the required text
-        links.forEach(link => {
-            if (link.textContent.trim().toLowerCase() === 'proceed') {
-                link.click();
-                console.log("Link with text 'Proceed' clicked successfully.");
-                found = true;
-            }
-        });
+            // Iterate over the links
+            links.forEach(link => {
+                const linkText = link.textContent.trim().toLowerCase();
+                if (linkText === 'proceed') {
+                    link.click();
+                    console.log("Link with text 'Proceed' clicked successfully.");
+                } else if (linkText === 'abort') {
+                    console.log("Link with text 'Abort' found. Doing nothing.");
+                }
+            });
 
-        if (!found) {
-            console.log("Link with text 'Proceed' not found.");
+            // Wait for a short delay before checking again
+            // Adjust the delay as needed
+            setTimeout(() => {}, 1000); // This line creates the delay
         }
     }
 
-    // Function to observe changes in the DOM
-    function observeDOMChanges() {
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                mutation.addedNodes.forEach((node) => {
-                    if (node.nodeType === Node.ELEMENT_NODE) {
-                        clickProceedLink();
-                    }
-                });
-            });
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    }
-
-    // Initial call to handle links already on the page
-    clickProceedLink();
-
-    // Start observing the DOM for changes
-    observeDOMChanges();
+    // Start the loop
+    continuouslyCheckForLink();
 })();
