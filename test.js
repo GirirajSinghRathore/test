@@ -1,21 +1,21 @@
 (function() {
-    // Function to find and click the button
-    function clickConfirmProceedButton() {
-        // Get all buttons on the page
-        const buttons = document.querySelectorAll("button");
+    // Function to find and click the link with href containing 'Proceed'
+    function clickProceedLink() {
+        // Get all links on the page
+        const links = document.querySelectorAll("a[href*='Proceed']");
         let found = false;
 
-        // Iterate over the buttons to find the ones with the required text
-        buttons.forEach(button => {
-            if (button.textContent.toLowerCase().includes('confirm') || button.textContent.toLowerCase().includes('proceed')) {
-                button.click();
-                console.log("Button clicked successfully.");
+        // Iterate over the links to find the ones with the required href
+        links.forEach(link => {
+            if (link.getAttribute('href').includes('Proceed')) {
+                link.click();
+                console.log("Link with href 'Proceed' clicked successfully.");
                 found = true;
             }
         });
 
         if (!found) {
-            console.log("Button not found.");
+            console.log("Link with href 'Proceed' not found.");
         }
     }
 
@@ -25,7 +25,7 @@
             mutations.forEach((mutation) => {
                 mutation.addedNodes.forEach((node) => {
                     if (node.nodeType === Node.ELEMENT_NODE) {
-                        clickConfirmProceedButton();
+                        clickProceedLink();
                     }
                 });
             });
@@ -37,8 +37,8 @@
         });
     }
 
-    // Initial call to handle buttons already on the page
-    clickConfirmProceedButton();
+    // Initial call to handle links already on the page
+    clickProceedLink();
 
     // Start observing the DOM for changes
     observeDOMChanges();
