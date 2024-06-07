@@ -1,10 +1,11 @@
 (function() {
     // Function to find and click the button
     function clickConfirmProceedButton() {
-        // Find the button with text 'confirm' or 'proceed'
+        // Get all buttons on the page
         const buttons = document.querySelectorAll("button");
         let found = false;
 
+        // Iterate over the buttons to find the ones with the required text
         buttons.forEach(button => {
             if (button.textContent.toLowerCase().includes('confirm') || button.textContent.toLowerCase().includes('proceed')) {
                 button.click();
@@ -22,9 +23,11 @@
     function observeDOMChanges() {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (mutation.addedNodes.length > 0) {
-                    clickConfirmProceedButton();
-                }
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        clickConfirmProceedButton();
+                    }
+                });
             });
         });
 
@@ -34,7 +37,9 @@
         });
     }
 
-    // Call the functions
+    // Initial call to handle buttons already on the page
     clickConfirmProceedButton();
+
+    // Start observing the DOM for changes
     observeDOMChanges();
 })();
